@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(function () {
     Route::view('admin', 'Admin');
-
     Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
         Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
