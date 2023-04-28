@@ -15,16 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('admin', 'Admin');
-Route::middleware(['web'])->group(function () {
-    Route::get('/', function () {
-        // Uses first & second middleware...
+Route::middleware(['admin'])->group(function () {
+    Route::prefix('/countries')->group(function () {
+        Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
+        Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
     });
 
-    Route::get('/user/profile', function () {
-        // Uses first & second middleware...
-    });
-
-    Route::get('/countries/create', [CountryController::class, 'create'])->name('countries.create');
-    Route::post('/countries/store', [CountryController::class, 'store'])->name('countries.store');
 
 });
