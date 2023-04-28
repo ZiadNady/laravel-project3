@@ -21,11 +21,10 @@
             </div>
         </div>
     </form>
-        <div class="container-fluid">
-            <div class="card shadow ">
+        <div class="container-fluid row">
+            <div class="card shadow col">
                 <div class="card-body">
                     <div class="row align-items-end">
-
                         <div class="col-6">
                             <div id="" class="">
                             <form action="{{  route('countries.index') }}" method="get">
@@ -61,7 +60,7 @@
                     {{ $countries->onEachSide(5)->links()  }}
                 </div>
             </div>
-            <div class="float-left w-100">
+            <div class="float-left col d-none">
                 <form action="{{ route('countries.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="container ">
