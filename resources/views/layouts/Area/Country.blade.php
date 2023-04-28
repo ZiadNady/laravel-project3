@@ -30,7 +30,7 @@
                     <div class="col-6">
                         <div id="" class="">
                          <form action="{{  route('countries.index') }}" method="get">
-                            <label class="form-label"><input class="form-control form-control-sm" name="search" type="search" aria-controls="dataTable" placeholder="Search">
+                            <label class="form-label"><input class="form-control form-control-sm" name="search" type="search" value="{{ $search }}" aria-controls="dataTable" placeholder="Search">
                             </label>
                             <button class="btn btn-primary border rounded" type="submit" >Filter</button>
                         </form>

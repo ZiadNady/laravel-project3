@@ -16,7 +16,7 @@ class CountryController extends Controller
         } else {
             $countries = Country::orderBy('id', 'asc')->paginate(15);
         }
-        return view('layouts.Area.Country', compact('countries'));
+        return view('layouts.Area.Country', compact('countries','search')  );
     }
 
     public function create()
