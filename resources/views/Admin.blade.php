@@ -12,6 +12,8 @@
             Management System | Dashboard
         @endif
     </title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -37,6 +39,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    @include('flash::message')
     <div class="wrapper">
         <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
@@ -108,6 +111,9 @@
     {{-- <script src="dist/js/demo.js"></script> --}}
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
+    <script>
+        $('#flash-overlay-modal').modal();
+    </script>
 </body>
 
 </html>
