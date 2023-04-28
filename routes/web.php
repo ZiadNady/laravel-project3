@@ -25,3 +25,5 @@ Route::post('/countries/store', [CountryController::class, 'store'])->name('coun
 // Route::get('/countries/{id}/edit', [CountryController::class, 'edit'])->name('countries.edit');
 // Route::put('/countries/{id}', [CountryController::class, 'update'])->name('countries.update');
 // Route::delete('/countries/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
+
+Route::get('/dashboard', function () {return view('dashboard');});
