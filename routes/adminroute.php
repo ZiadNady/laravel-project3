@@ -15,3 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('admin', 'Admin');
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        // Uses first & second middleware...
+    });
+
+    Route::get('/user/profile', function () {
+        // Uses first & second middleware...
+    });
+
+
+
+
+});
