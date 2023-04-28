@@ -16,7 +16,7 @@ class CountryController extends Controller
 
     public function create()
     {
-         //   flash('Message 2')->important();
+            flash('Message 2')->important();
 
 
         return view('layouts.Area.addNewCountry');
