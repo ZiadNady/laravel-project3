@@ -15,7 +15,7 @@ class CountryController extends Controller
 
     public function create()
     {
-        return view('AddCountry');
+        return view('layouts.Area.addNewCountry');
     }
 
     public function store(Request $request)

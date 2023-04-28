@@ -19,8 +19,6 @@ Route::get('/', function () {
 });
 
 // Route::get('/countries', [CountryController::class, 'index'])->name('countries.index');
-Route::get('/countries/create', [CountryController::class, 'create'])->name('countries.create');
-Route::post('/countries/store', [CountryController::class, 'store'])->name('countries.store');
 // Route::get('/countries/{id}', [CountryController::class, 'show'])->name('countries.show');
 // Route::get('/countries/{id}/edit', [CountryController::class, 'edit'])->name('countries.edit');
 // Route::put('/countries/{id}', [CountryController::class, 'update'])->name('countries.update');

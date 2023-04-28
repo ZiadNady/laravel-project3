@@ -24,7 +24,7 @@ Route::middleware(['web'])->group(function () {
         // Uses first & second middleware...
     });
 
-
-
+    Route::get('/countries/create', [CountryController::class, 'create'])->name('countries.create');
+    Route::post('/countries/store', [CountryController::class, 'store'])->name('countries.store');
 
 });
