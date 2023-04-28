@@ -26,4 +26,3 @@ Route::post('/countries/store', [CountryController::class, 'store'])->name('coun
 // Route::put('/countries/{id}', [CountryController::class, 'update'])->name('countries.update');
 // Route::delete('/countries/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
 
-Route::view('admin', 'Admin');
