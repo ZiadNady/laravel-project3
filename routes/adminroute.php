@@ -20,8 +20,12 @@ Route::middleware(['admin'])->group(function () {
 
     Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
+        Route::get('/', [CountryController::class, 'index'])->name('countries.index');
         Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
     });
 
 
+
+
 });
+

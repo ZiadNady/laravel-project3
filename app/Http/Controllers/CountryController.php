@@ -4,22 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
-use Laracasts\Flash;
 
 class CountryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $countries = Country::orderBy('id','asc')->pagination(5);
-        return view('countries.index', compact('countries'));
+
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $countries = Country::where('country_name', 'LIKE', $search . '%')->paginate(15);
+        } else {
+            $countries = Country::orderBy('id', 'asc')->paginate(15);
+        }
+        return view('layouts.Area.Country', compact('countries','search')  );
     }
 
     public function create()
     {
-         //   flash('Message 2')->important();
-
-
-        return view('layouts.Area.addNewCountry');
+        return view('layouts.Area.Country');
     }
 
     public function store(Request $request)
@@ -27,22 +29,11 @@ class CountryController extends Controller
         $validatedData = $request->validate([
             'country_name' => 'required|max:255',
         ]);
-        // $request->validate([
-        //     'name'=>'required',
-        //     'email'=>'required',
-        //     'address'=>'required',
-        // ]);
         Country::create($validatedData);
-        dd($request);
-        // return redirect()->route('countries.store');
-        // $country = new Country();
-        // $country->country_name = $request->country_name;
-        // $country->save();
-        // return view('welcome');
-        return response()->json($request->all());
-
-        // return redirect()->route('countries.index')
-        //     ->with('success', 'Country created successfully.');
+        //   dd($request);
+        //  flash('Country created successfully.')->success();
+        //   return response()->json($request->all());
+        return redirect()->route('countries.index');
     }
 
     public function edit(Country $country)
@@ -67,7 +58,7 @@ class CountryController extends Controller
     {
         $country->delete();
 
-        return redirect()->route('countries.index')
-            ->with('success', 'Country deleted successfully.');
+       // return redirect()->route('countries.index')
+       //     ->with('success', 'Country deleted successfully.');
     }
 }
