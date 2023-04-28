@@ -9,7 +9,7 @@ class CountryController extends Controller
 {
     public function index(Request $request)
     {
-
+        $search = null;
         if ($request->exists('search')) {
             $search  = $request->search;
             $countries = Country::where('country_name', 'LIKE', $search . '%')->paginate(15);
@@ -54,11 +54,11 @@ class CountryController extends Controller
             ->with('success', 'Country updated successfully.');
     }
 
-    public function destroy(Country $country)
+    public function destroy($id)
     {
+        $country = Country::findOrFail($id);
         $country->delete();
-
-       // return redirect()->route('countries.index')
-       //     ->with('success', 'Country deleted successfully.');
+        $search = null;
+        return redirect()->route('countries.index');
     }
 }

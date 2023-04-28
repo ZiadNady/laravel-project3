@@ -22,6 +22,8 @@ Route::middleware(['admin'])->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
         Route::get('/', [CountryController::class, 'index'])->name('countries.index');
         Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
+        Route::get('/delete/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
+        Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('countries.edit');
     });
 
 
