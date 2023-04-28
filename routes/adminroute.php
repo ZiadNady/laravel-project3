@@ -14,21 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('admin', 'Admin');
+
 Route::middleware(['admin'])->group(function () {
+    Route::view('admin', 'Admin');
+
     Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
         Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
     });
 
-<<<<<<< HEAD
-=======
-    Route::get('/user/profile', function () {
-        // Uses first & second middleware...
-    });
-
-    Route::get('admin/countries/create', [CountryController::class, 'create'])->name('countries.create');
-    Route::post('admin/countries/store', [CountryController::class, 'store'])->name('countries.store');
->>>>>>> 5f224ce0ed9f7bfadb101b68019c799187a52f04
 
 });
