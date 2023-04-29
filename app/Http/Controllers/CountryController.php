@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CountryController extends Controller
 {
@@ -16,7 +17,7 @@ class CountryController extends Controller
         } else {
             $countries = Country::orderBy('id', 'asc')->paginate(15);
         }
-        return view('layouts.Area.Country', compact('countries','search')  );
+        return view('layouts.Area.Country', compact('countries', 'search'));
     }
 
     public function create()
@@ -36,17 +37,20 @@ class CountryController extends Controller
         return redirect()->route('countries.index');
     }
 
-    public function edit(Country $country)
+    public function edit($id)
     {
-        return view('countries.edit', compact('country'));
+        $country = Country::find($id);
+        return view('layouts.Area.EditCountry', compact('country'));
     }
 
-    public function update(Request $request, Country $country)
+    public function update(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'country_name' => 'required|max:255',
         ]);
+        //   return response()->json($request->all());
 
+        $country = Country::find($request->id);
         $country->country_name = $request->country_name;
         $country->save();
 

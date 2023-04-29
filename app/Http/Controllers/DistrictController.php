@@ -3,53 +3,78 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\Province;
 use Illuminate\Http\Request;
 
 class DistrictController extends Controller
 {
+    public function index(Request $request)
+    {
+        $search = null;
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $districts = District::where('district_name', 'LIKE', $search . '%')->paginate(15);
+        } else {
+            $districts = District::orderBy('id', 'asc')->paginate(15);
+        }
+        return view('layouts.Area.District', compact('districts', 'search'));
+    }
+
+    public function getDistrictsByCountryId($province_id)
+    {
+        $districts = District::where('province_id', $province_id)->get();
+
+        return response()->json($districts);
+    }
+
+    public function create()
+    {
+        return redirect()->route('districts.index');
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'district_name' => 'required|string|max:255',
-            'province_id' => 'required|integer|exists:provinces,id'
+            'province_id' => 'required',
+            'district_name' => 'required|max:255',
         ]);
-
-        $district = new District;
-        $district->district_name = $validatedData['district_name'];
-        $district->province_id = $validatedData['province_id'];
-        $district->save();
-
-        return response()->json(['message' => 'District created successfully', 'data' => $district]);
+        if (Province::find($request->province_id))
+            District::create($validatedData);
+        // return response()->json($request->province_id);
+        //   dd($request);
+        //  flash('District created successfully.')->success();
+        //   return response()->json($request->all());
+        return redirect()->route('districts.index');
     }
 
-    public function update(Request $request, $id)
+    public function edit($id)
     {
-        $validatedData = $request->validate([
-            'district_name' => 'required|string|max:255',
-            'province_id' => 'required|integer|exists:provinces,id'
-        ]);
-
         $district = District::find($id);
-        if (!$district) {
-            return response()->json(['message' => 'District not found'], 404);
+        return view('layouts.Area.EditDistrict', compact('district'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'province_id' => 'required',
+            'district_name' => 'required|max:255',
+        ]);
+        //   return response()->json($request);
+
+        if (Province::find($request->province_id)) {
+            $district = District::find($request->id);
+            $district->province_id = $request->province_id;
+            $district->district_name = $request->district_name;
+            $district->save();
+            return redirect()->route('districts.index')->with('success', 'District updated successfully.');
         }
-
-        $district->district_name = $validatedData['district_name'];
-        $district->province_id = $validatedData['province_id'];
-        $district->save();
-
-        return response()->json(['message' => 'District updated successfully', 'data' => $district]);
     }
 
     public function destroy($id)
     {
-        $district = District::find($id);
-        if (!$district) {
-            return response()->json(['message' => 'District not found'], 404);
-        }
-
+        $district = District::findOrFail($id);
         $district->delete();
-
-        return response()->json(['message' => 'District deleted successfully']);
+        $search = null;
+        return redirect()->route('districts.index');
     }
 }
