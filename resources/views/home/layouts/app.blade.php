@@ -9,8 +9,8 @@
         @yield('title', get_setting('website_name') . ' | ' . get_setting('site_motto'))
     </title>
 
- <!--  css main  -->
- <link rel="stylesheet" href="{{ asset('css/main.css') }} ">
+ <!--  css mani  -->
+ <link rel="stylesheet" href="{{ asset('css/mine.css') }} ">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
