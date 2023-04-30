@@ -17,9 +17,13 @@ class admin
     {
 
 
-        // if (auth()->user()->role_id != 1) {
-        //     abort(403);
-        // }
+         if (auth()->user()->role_id != 1) {
+             abort(403);
+         }
+         else
+
+       //  auth()->user() //roles
+        // return response()->json(auth()->user()->);
         return $next($request);
     }
 }

@@ -9,8 +9,19 @@ class CountryController extends Controller
 {
     public function index()
     {
+<<<<<<< Updated upstream
         $countries = Country::orderBy('id','asc')->pagination(5);
         return view('countries.index', compact('countries'));
+=======
+        $search = null;
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $countries = Country::where('country_name', 'LIKE', $search . '%')->paginate(5);
+        } else {
+            $countries = Country::orderBy('id', 'asc')->paginate(5);
+        }
+        return view('layouts.Area.Country', compact('countries', 'search'));
+>>>>>>> Stashed changes
     }
 
     public function create()
