@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Auth;
+
 class admin
 {
     /**
@@ -16,14 +18,14 @@ class admin
     public function handle(Request $request, Closure $next): Response
     {
 
-
-         if (auth()->user()->role_id != 1) {
+  //if ($request->isA('Auth')) {
+         if (Auth::check() &&Auth::check() && auth()->user()->role_id != 1) {
              abort(403);
          }
          else
 
        //  auth()->user() //roles
-        // return response()->json(auth()->user()->);
+      //   return response()->json(auth()->user());
         return $next($request);
     }
 }

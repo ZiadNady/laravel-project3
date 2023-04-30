@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +19,43 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(function () {
     Route::view('admin', 'Admin');
+
     Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
+        Route::get('/', [CountryController::class, 'index'])->name('countries.index');
         Route::post('/store', [CountryController::class, 'store'])->name('countries.store');
+        Route::get('/delete/{id}', [CountryController::class, 'destroy'])->name('countries.destroy');
+        Route::get('/edit/{id}', [CountryController::class, 'edit'])->name('countries.edit');
+        Route::put('/update', [CountryController::class, 'update'])->name('countries.update');
     });
 
+    Route::prefix('/provinces')->group(function () {
+        Route::get('/create', [ProvinceController::class, 'create'])->name('provinces.create');
+        Route::get('/', [ProvinceController::class, 'index'])->name('provinces.index');
+        Route::post('/store', [ProvinceController::class, 'store'])->name('provinces.store');
+        Route::get('/delete/{id}', [ProvinceController::class, 'destroy'])->name('provinces.destroy');
+        Route::get('/edit/{id}', [ProvinceController::class, 'edit'])->name('provinces.edit');
+        Route::put('/update', [ProvinceController::class, 'update'])->name('provinces.update');
+        Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
+    });
 
+    Route::prefix('/District')->group(function () {
+        Route::get('/create', [DistrictController::class, 'create'])->name('districts.create');
+        Route::get('/', [DistrictController::class, 'index'])->name('districts.index');
+        Route::post('/store', [DistrictController::class, 'store'])->name('districts.store');
+        Route::get('/delete/{id}', [DistrictController::class, 'destroy'])->name('districts.destroy');
+        Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('districts.edit');
+        Route::put('/update', [DistrictController::class, 'update'])->name('districts.update');
+        Route::get('/getDistricts/{district_id}',[ProvinceController::class, 'getDistrictsByprovinceId'])->name('districts.getDistricts');
+    });
+
+    Route::prefix('/Pharmacy')->group(function () {
+        Route::get('/create', [PharmacyController::class, 'create'])->name('pharmacy.create');
+        Route::get('/', [PharmacyController::class, 'index'])->name('pharmacy.index');
+        Route::post('/store', [PharmacyController::class, 'store'])->name('pharmacy.store');
+        Route::get('/delete/{id}', [PharmacyController::class, 'destroy'])->name('pharmacy.destroy');
+        Route::get('/edit/{id}', [PharmacyController::class, 'edit'])->name('pharmacy.edit');
+        Route::put('/update', [PharmacyController::class, 'update'])->name('pharmacy.update');
+    });
 });
+
