@@ -79,7 +79,8 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $districts->onEachSide(5)->links() }}
+
+                {{ $districts->appends(request()->input())->onEachSide(5)->links() }}
             </div>
         </div>
     </div>

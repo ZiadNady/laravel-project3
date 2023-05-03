@@ -11,7 +11,7 @@
             Management System | Dashboard
         @endif
     </title>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css') }}">
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -53,7 +53,6 @@
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
             </a>
-
             <!-- Sidebar -->
             <div class="sidebar">
                 @include('layouts.component.sidebar')
@@ -112,7 +111,6 @@
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script>
         $('#flash-overlay-modal').modal();
-            
     </script>
 </body>
 

@@ -69,7 +69,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $provinces->onEachSide(5)->links() }}
+                {{ $provinces->appends(request()->input())->onEachSide(5)->links() }}
             </div>
         </div>
     </div>

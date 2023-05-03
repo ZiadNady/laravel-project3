@@ -61,7 +61,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $countries->onEachSide(5)->links() }}
+                {{ $countries->appends(request()->input())->onEachSide(5)->links() }}
             </div>
         </div>
     </div>

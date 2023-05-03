@@ -147,7 +147,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href={{ route('districts.index') }} class="nav-link">
+                    <a href="{{ route('districts.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>add new District</p>
                     </a>

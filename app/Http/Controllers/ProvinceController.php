@@ -25,7 +25,6 @@ class ProvinceController extends Controller
     public function getProvincesByCountryId($country_id)
     {
         $provinces = Province::where('country_id', $country_id)->get();
-
         return response()->json($provinces);
     }
 
@@ -61,7 +60,7 @@ class ProvinceController extends Controller
             'province_name' => 'required|max:255',
         ]);
         // return response()->json($request->all());
-        
+
         if (Country::find($request->country_id)) {
             $province = Province::find($request->id);
             $province->country_id = $request->country_id;
