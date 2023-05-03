@@ -33,17 +33,8 @@
     <div class="flex-center position-ref full-height">
    <!-- Header -->
    @include('home.inc.nav')
-
    @yield('content')
-
    @include('home.inc.footer')
-
-
-
-
-
-
-
     @yield('script')
 
 
