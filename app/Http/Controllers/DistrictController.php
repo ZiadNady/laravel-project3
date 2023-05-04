@@ -20,7 +20,7 @@ class DistrictController extends Controller
         return view('layouts.Area.District', compact('districts', 'search'));
     }
 
-    public function getDistrictsByCountryId($province_id)
+    public function getDistrictsByProvinceId($province_id)
     {
         $districts = District::where('province_id', $province_id)->get();
 
@@ -44,7 +44,7 @@ class DistrictController extends Controller
         //   dd($request);
         //  flash('District created successfully.')->success();
         //   return response()->json($request->all());
-        return redirect()->route('districts.index');
+        return redirect()->route('districts.index')->with('success', 'District updated successfully.');
     }
 
     public function edit($id)

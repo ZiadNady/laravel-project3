@@ -4,13 +4,14 @@
 
 @section('content')
 
-    <form action="{{ route('districts.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('pharmacy.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container ">
             <div class="row d-flex justify-content-center">
                 <div class="col-md-6 col-xl-4">
                     <div class="card mt-10">
                         <div class="card-body text-center d-flex flex-column align-items-center">
+                            <div class="mb-3 col"><input class="form-control" type="name" name="pharmacy_name" placeholder="Pharmacy name" /></div>
                             <div class="mb-3 col">
                                 <select class="form-control" type="name" id="country" name="country_id" placeholder="province">
                                     <option>-- select country --</option>
@@ -20,12 +21,13 @@
                                 </select>
                             </div>
                             <div class="mb-3 col">
-                                <select class="form-control" type="name" id="province" name="province_id"
-                                    placeholder="province">
+                                <select class="form-control" type="name" id="province" name="province_id" placeholder="province">
                                 </select>
                             </div>
-                            <div class="mb-3 col"><input class="form-control" type="name" name="district_name"
-                                    placeholder="province" /></div>
+                            <div class="mb-3 col">
+                                <select class="form-control" type="name" id="district" name="district_id" placeholder="district">
+                                </select>
+                            </div>
                             <div class="mb-3 col"><button class="btn btn-primary shadow d-block w-100"
                                     type="submit">add</button></div>
                         </div>
@@ -40,7 +42,7 @@
                 <div class="row align-items-end">
                     <div class="col-6">
                         <div id="" class="">
-                            <form action="{{ route('districts.index') }}" method="get">
+                            <form action="{{ route('pharmacy.index') }}" method="get">
                                 <label class="form-label"><input class="form-control form-control-sm" name="search"
                                         type="search" value="{{ $search }}" aria-controls="dataTable"
                                         placeholder="Search">
@@ -55,6 +57,7 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
+                                <th class="text-center">Pharmacy name</th>
                                 <th class="text-center">Country</th>
                                 <th class="text-center">Province</th>
                                 <th class="text-center">District</th>
@@ -62,16 +65,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($districts as $district)
+                            @foreach ($pharmacies as $pharmacy)
                                 <tr>
+
                                     <td class="text-center" style="width: 20%;">{{ $loop->iteration }}</td>
-                                    <td class="text-center" style="width: 20%;">{{ $district->Province->Country->country_name }}</td>
-                                    <td class="text-center" style="width: 20%;">{{ $district->Province->province_name }}</td>
-                                    <td class="text-center" style="width: 20%;">{{ $district->district_name }}</td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->pharmacy_name }}</td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->Country->country_name }}</td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->Province->province_name }}</td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->District->district_name }}</td>
                                     <td class="text-center d-inline-flex d-sm-flex justify-content-sm-center">
-                                        <a href="{{ route('districts.edit', $district->id) }}" class="btn btn-primary"
+                                        <a href="{{ route('pharmacy.edit', $pharmacy->id) }}" class="btn btn-primary"
                                             type="button">Edit</a>
-                                        <a href="{{ route('districts.destroy', $district->id) }}" class="btn btn-danger"
+                                        <a href="{{ route('pharmacy.destroy', $pharmacy->id) }}" class="btn btn-danger"
                                             type="button">Delete</a>
                                     </td>
                                 </tr>
@@ -79,7 +84,7 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $districts->onEachSide(5)->links() }}
+                {{ $pharmacies->appends(request()->input())->onEachSide(5)->links() }}
             </div>
         </div>
     </div>
@@ -87,12 +92,13 @@
         document.addEventListener("DOMContentLoaded", function() {
             var countrySelect = document.getElementById("country");
             var provinceSelect = document.getElementById("province");
+            var districtSelect = document.getElementById("district")
 
             countrySelect.addEventListener("change", function() {
                 var countryId = countrySelect.value;
                 provinceSelect.innerHTML = '<option value="">-- Select Province --</option>';
 
-                fetch('/provinces/getProvinces/' + countryId)
+                fetch('{{ route('provinces.getProvinces',"") }}/'+countryId)
                     .then(function(response) {
                         return response.json();
                     })
@@ -106,6 +112,28 @@
                     })
                     .catch(function() {
                         alert('There was an error retrieving the provinces.');
+                    });
+            });
+
+            provinceSelect.addEventListener("change", function() {
+                console.log("hi");
+                var provienceId = provinceSelect.value;
+                districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+                fetch('{{ route('districts.getDistricts',"") }}/'+provienceId)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        data.forEach(function(district) {
+                            var option = document.createElement("option");
+                            option.value = district.id;
+                            option.text = district.district_name;
+                            districtSelect.appendChild(option);
+                        });
+                    })
+                    .catch(function() {
+                        alert('There was an error retrieving the districts.');
                     });
             });
         });

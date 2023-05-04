@@ -106,7 +106,8 @@ class LoginController extends Controller
 
         $data = $request->all();
         $check = $this->create($data);
-        return response()->json($check);
+        return redirect()->route('home');
+        // return response()->json($check);
         //    return  $checkك redirect("dashboard")->withSuccess('You have signed-in');
     }
 

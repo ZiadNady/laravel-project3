@@ -25,6 +25,7 @@ class ProvinceController extends Controller
     public function getProvincesByCountryId($country_id)
     {
         $provinces = Province::where('country_id', $country_id)->get();
+            
         return response()->json($provinces);
     }
 

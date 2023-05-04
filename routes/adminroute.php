@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProvinceController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +46,7 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/delete/{id}', [DistrictController::class, 'destroy'])->name('districts.destroy');
         Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('districts.edit');
         Route::put('/update', [DistrictController::class, 'update'])->name('districts.update');
-        Route::get('/getDistricts/{district_id}',[ProvinceController::class, 'getDistrictsByprovinceId'])->name('districts.getDistricts');
+        Route::get('/getDistricts/{district_id}',[DistrictController::class, 'getDistrictsByProvinceId'])->name('districts.getDistricts');
     });
 
     Route::prefix('/Pharmacy')->group(function () {

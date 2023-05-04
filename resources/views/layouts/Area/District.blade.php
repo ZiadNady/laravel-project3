@@ -93,7 +93,7 @@
                 var countryId = countrySelect.value;
                 provinceSelect.innerHTML = '<option value="">-- Select Province --</option>';
 
-                fetch('/provinces/getProvinces/' + countryId)
+                fetch('{{ route('provinces.getProvinces',"") }}/'+countryId)
                     .then(function(response) {
                         return response.json();
                     })
