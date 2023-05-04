@@ -17,11 +17,8 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/', function () {
     return view('home.index');
 })->name('home');
-
-
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('custom-login', [LoginController::class, 'customLogin'])->name('login.custom');
-
 Route::get('registration', [LoginController::class, 'registration'])->name('register');
 Route::post('custom-registration', [LoginController::class, 'customRegistration'])->name('register.custom');
 Route::get('signout', [UserController::class, 'signOut'])->name('signout');
