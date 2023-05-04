@@ -21,6 +21,7 @@ class User extends Authenticatable
         'mobile_number',
         'province_id',
         'district_id',
+        'gender',
         'country_id',
     ];
 
@@ -40,8 +41,8 @@ class User extends Authenticatable
     }
 
 
-    public function roles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class);
-    }
+    // public function roles(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Role::class);
+    // }
 }
