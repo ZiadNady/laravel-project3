@@ -14,8 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        $roles = Role::paginate(10);
+        return view('layouts.roles.index', compact('roles'));
     }
 
     /**
@@ -25,7 +25,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('roles.create');
+        return view('layouts.roles.create');
     }
 
     /**
@@ -97,11 +97,25 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
-    {
-        $role->delete();
 
-        return redirect()->route('roles.index')
-            ->with('success', 'Role deleted successfully.');
-    }
+
+     public function destroy($id)
+     {
+         $role = Role::findOrFail($id);
+       /*  foreach ($role->role_translations as $key => $role_translation) {
+             $role_translation->delete();
+         }*/
+
+         Role::destroy($id);
+       //  flash('Role has been deleted successfully')->success();
+         return redirect()->route('roles.index');
+     }
+
+    // public function destroy(Role $role)
+    // {
+    //     $role->delete();
+
+    //     return redirect()->route('roles.index')
+    //         ->with('success', 'Role deleted successfully.');
+    // }
 }
