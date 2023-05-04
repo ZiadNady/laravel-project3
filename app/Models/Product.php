@@ -13,7 +13,6 @@ class Product extends Model
         'category',
         'product_name',
         'product_code',
-        'code',
     ];
 
     public function pharmacies()
