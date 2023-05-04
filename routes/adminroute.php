@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['admin'])->prefix('/Admin')->group(function () {
-    Route::view('/', 'Admin');
+       // Route::view('/', 'Admin');
         Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
         Route::get('/', [CountryController::class, 'index'])->name('countries.index');
