@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('password');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('gender');
+
             $table->string('address')->nullable();
             $table->string('mobile_number')->nullable();
             $table->unsignedBigInteger('pharmacy_id')->nullable();
