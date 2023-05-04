@@ -56,6 +56,7 @@ class PharmacyController extends Controller
             'district_id' => 'required|integer',
             'province_id' => 'required|integer',
         ]);
+        // return response()->json($request);
         if (Pharmacy::find($request->id)) {
             $pharmacy = Pharmacy::find($request->id);
             $pharmacy->pharmacy_name = $request->pharmacy_name;
