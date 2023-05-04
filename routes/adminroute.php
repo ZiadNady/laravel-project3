@@ -5,6 +5,8 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProvinceController;
+
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,7 +60,6 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/edit/{id}', [PharmacyController::class, 'edit'])->name('pharmacy.edit');
         Route::put('/update', [PharmacyController::class, 'update'])->name('pharmacy.update');
     });
-
     Route::prefix('/Product')->group(function () {
         Route::get('/create', [ProductController::class, 'create'])->name('product.create');
         Route::get('/', [ProductController::class, 'index'])->name('product.index');
@@ -66,6 +67,14 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::put('/update', [ProductController::class, 'update'])->name('product.update');
+    });
+
+    Route::prefix('/roles')->group(function () {
+
+        Route::resource('/', RoleController::class);
+    Route::get('/roles/edit/{id}', [RoleController::class, 'edit'] )->name('roles.edit');
+    Route::get('/roles/destroy/{id}', [RoleController::class, 'destroy'] )->name('roles.destroy');
+
     });
 });
 

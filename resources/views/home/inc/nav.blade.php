@@ -129,7 +129,7 @@
 
         @else
 
-        <a href="{{ route('login') }}" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">login</a>
+        <a href="{{ route('login') }}" class="btn btn-primary btn-lg active m" role="button" aria-pressed="true">login</a>
         <a href="{{ route('register') }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">register</a>
 
         {{-- <li class="nav-item me-3 me-lg-1">
