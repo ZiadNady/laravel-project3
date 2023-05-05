@@ -26,7 +26,7 @@ class PharmacyProductController extends Controller
 
     public function create()
     {
-        return view('pharmacy-products.create');
+        return view('pharmacyProduct.create');
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class PharmacyProductController extends Controller
     public function show($id)
     {
         $pharmacyProduct = PharmacyProduct::findOrFail($id);
-        return view('pharmacy-products.show', compact('pharmacyProduct'));
+        return view('pharmacyProduct.show', compact('pharmacyProduct'));
     }
 
     /**
@@ -61,10 +61,11 @@ class PharmacyProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($Product_id, $id)
     {
-        $pharmacyProduct = PharmacyProduct::findOrFail($id);
-        return view('pharmacy-products.edit', compact('pharmacyProduct'));
+        $pharmacyProduct = PharmacyProduct::findOrFail($Product_id);
+
+        return view('layouts.pharmacyProduct.EditPharmacyProduct', compact('pharmacyProduct','id'));
     }
 
     /**
@@ -87,7 +88,7 @@ class PharmacyProductController extends Controller
         $pharmacyProduct = PharmacyProduct::findOrFail($id);
         $pharmacyProduct->update($validatedData);
 
-        return redirect()->route('pharmacy-products.index')->with('success', 'Pharmacy product updated successfully.');
+        return redirect()->route('pharmacyProduct.index',$id)->with('success', 'Pharmacy product updated successfully.');
     }
 
     /**
@@ -96,11 +97,11 @@ class PharmacyProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($Product_id, $id)
     {
-        $pharmacyProduct = PharmacyProduct::findOrFail($id);
+        $pharmacyProduct = PharmacyProduct::findOrFail($Product_id);
         $pharmacyProduct->delete();
 
-        return redirect()->route('pharmacy-products.index')->with('success', 'Pharmacy product deleted successfully.');
+        return redirect()->route('pharmacyProduct.index',$id)->with('success', 'Pharmacy product deleted successfully.');
     }
 }

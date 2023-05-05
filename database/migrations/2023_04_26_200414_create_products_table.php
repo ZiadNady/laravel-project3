@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('category');
             $table->string('product_name');
             $table->string('product_code');
+            $table->string('image');
+            $table->integer('time_sold');
+            $table->string('drug_type');
             $table->timestamps();
         });
     }

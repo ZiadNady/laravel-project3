@@ -75,8 +75,8 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/create', [PharmacyProductController::class, 'create'])->name('pharmacyProduct.create');
         Route::get('/{id}', [PharmacyProductController::class, 'index'])->name('pharmacyProduct.index');
         Route::post('/store', [PharmacyProductController::class, 'store'])->name('pharmacyProduct.store');
-        Route::get('/delete/{id}', [PharmacyProductController::class, 'destroy'])->name('pharmacyProduct.destroy');
-        Route::get('/edit/{id}', [PharmacyProductController::class, 'edit'])->name('pharmacyProduct.edit');
+        Route::get('/delete/{Product_id}/{id}', [PharmacyProductController::class, 'destroy'])->name('pharmacyProduct.destroy');
+        Route::get('/edit/{Product_id}/{id}', [PharmacyProductController::class, 'edit'])->name('pharmacyProduct.edit');
         Route::put('/update', [PharmacyProductController::class, 'update'])->name('pharmacyProduct.update');
     });
 

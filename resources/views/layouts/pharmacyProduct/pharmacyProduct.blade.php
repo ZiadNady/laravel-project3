@@ -20,7 +20,7 @@
                                 @endforeach
                             </select>
                             <input type="hidden" value="{{ $id }}" name="pharmacy_id"/>
-                            <div class="mb-3 col"><input class="form-control" type="date" name="expiration_date" id="expiration_date" placeholder="expiration_date" /></div>
+                            <div class="mb-3 col"><input class="form-control" type="date" name="expiration_date" id="expiration_date" min="{{ date('Y-m-d') }}" /></div>
                             <div class="mb-3 col"><button class="btn btn-primary shadow d-block w-100" type="submit">add</button></div>
                         </div>
                     </div>
@@ -65,9 +65,9 @@
                                     <td class="text-center" style="width: 20%;">{{ $product->quantity }}</td>
                                     <td class="text-center" style="width: 20%;">{{ $product->expiration_date }}</td>
                                     <td class="text-center d-inline-flex d-sm-flex justify-content-sm-center">
-                                        <a href="{{ route('product.edit', $product->id) }}" class="btn btn-primary"
+                                        <a href="{{ route('pharmacyProduct.edit', ['Product_id' => $product->id, 'id' => $id]) }}" class="btn btn-primary"
                                             type="button">Edit</a>
-                                        <a href="{{ route('product.destroy', $product->id) }}" class="btn btn-danger"
+                                        <a href="{{ route('pharmacyProduct.destroy', ['Product_id' => $product->id, 'id' => $id]) }}" class="btn btn-danger"
                                             type="button">Delete</a>
                                     </td>
                                 </tr>
