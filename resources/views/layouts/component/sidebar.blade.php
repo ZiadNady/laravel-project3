@@ -98,6 +98,24 @@
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link">
+                <i class="fa-solid fa-lock "></i>
+                <p>
+                    Role
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                    <a href="{{ route('roles.index') }}" class="nav-link">
+                        <i class="fa-regular fa-book-sparkles nav-icon"></i>
+                        <p>Role</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-copy"></i>
                 <p>
                     Medicine

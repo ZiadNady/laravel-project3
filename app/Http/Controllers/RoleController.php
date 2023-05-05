@@ -36,12 +36,18 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $request->validate([
-            'role' => 'required|string|unique:roles|max:255',
+            'name' => 'required|string|unique:roles|max:255',
         ]);
 
-        $role = Role::create([
-            'role' => $request->role,
+       // return response()->json(  $request->role);
+
+       $role = Role::create([
+            'permissions' =>  json_encode($request->permissions),
+            'name' => $request->name,
         ]);
 
         return redirect()->route('roles.index')
