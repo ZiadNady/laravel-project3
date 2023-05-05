@@ -15,6 +15,8 @@ class PharmacyProduct extends Model
         'price',
         'quantity',
         'expiration_date',
+        'pharmacy_id',
+        'product_id'
     ];
 
     public function pharmacy()

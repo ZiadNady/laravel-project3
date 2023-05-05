@@ -11,11 +11,9 @@
                 <div class="col-md-6 col-xl-4">
                     <div class="card mt-10">
                         <div class="card-body text-center d-flex flex-column align-items-center">
-                            <div class="mb-3 col"><input class="form-control" type="name" name="pharmacy_name"
-                                    placeholder="Pharmacy name" /></div>
+                            <div class="mb-3 col"><input class="form-control" type="name" name="pharmacy_name" placeholder="Pharmacy name" /></div>
                             <div class="mb-3 col">
-                                <select class="form-control" type="name" id="country" name="country_id"
-                                    placeholder="province">
+                                <select class="form-control" type="name" id="country" name="country_id" placeholder="province">
                                     <option>-- select country --</option>
                                     @foreach (getCountries() as $country)
                                         <option value="{{ $country->id }}">{{ $country->country_name }}</option>
@@ -23,13 +21,11 @@
                                 </select>
                             </div>
                             <div class="mb-3 col">
-                                <select class="form-control" type="name" id="province" name="province_id"
-                                    placeholder="province">
+                                <select class="form-control" type="name" id="province" name="province_id" placeholder="province">
                                 </select>
                             </div>
                             <div class="mb-3 col">
-                                <select class="form-control" type="name" id="district" name="district_id"
-                                    placeholder="district">
+                                <select class="form-control" type="name" id="district" name="district_id" placeholder="district">
                                 </select>
                             </div>
                             <div class="mb-3 col"><button class="btn btn-primary shadow d-block w-100"
@@ -75,17 +71,13 @@
                                     <td class="text-center" style="width: 20%;">{{ $loop->iteration }}</td>
                                     <td class="text-center" style="width: 20%;">{{ $pharmacy->pharmacy_name }}</td>
                                     <td class="text-center" style="width: 20%;">{{ $pharmacy->Country->country_name }}</td>
-                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->Province->province_name }}
-                                    </td>
-                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->District->district_name }}
-                                    </td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->Province->province_name }}</td>
+                                    <td class="text-center" style="width: 20%;">{{ $pharmacy->District->district_name }}</td>
                                     <td class="text-center d-inline-flex d-sm-flex justify-content-sm-center">
                                         <a href="{{ route('pharmacy.edit', $pharmacy->id) }}" class="btn btn-primary"
                                             type="button">Edit</a>
                                         <a href="{{ route('pharmacy.destroy', $pharmacy->id) }}" class="btn btn-danger"
                                             type="button">Delete</a>
-                                        <a href="{{ route('pharmacyProduct.index', $pharmacy->id) }}" class="btn btn-info"
-                                            type="button">Storage</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -106,7 +98,7 @@
                 var countryId = countrySelect.value;
                 provinceSelect.innerHTML = '<option value="">-- Select Province --</option>';
 
-                fetch('{{ route('provinces.getProvinces', '') }}/' + countryId)
+                fetch('{{ route('provinces.getProvinces',"") }}/'+countryId)
                     .then(function(response) {
                         return response.json();
                     })
@@ -128,7 +120,7 @@
                 var provienceId = provinceSelect.value;
                 districtSelect.innerHTML = '<option value="">-- Select District --</option>';
 
-                fetch('{{ route('districts.getDistricts', '') }}/' + provienceId)
+                fetch('{{ route('districts.getDistricts',"") }}/'+provienceId)
                     .then(function(response) {
                         return response.json();
                     })

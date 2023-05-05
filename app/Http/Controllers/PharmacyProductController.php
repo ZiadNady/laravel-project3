@@ -12,30 +12,26 @@ class PharmacyProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $id)
     {
-        $pharmacyProducts = PharmacyProduct::all();
-        return view('pharmacy-products.index', compact('pharmacyProducts'));
+        $search = null;
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $pharmacyProducts = PharmacyProduct::where('product_name', 'LIKE', $search . '%')->paginate(15);
+        } else {
+            $pharmacyProducts = PharmacyProduct::orderBy('id', 'asc')->where('pharmacy_id', $id)->paginate(15);
+        }
+        return view('layouts.pharmacyProduct.pharmacyProduct', compact('pharmacyProducts','search','id'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('pharmacy-products.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $id = $request->pharmacy_id;
         $validatedData = $request->validate([
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
@@ -43,10 +39,8 @@ class PharmacyProductController extends Controller
             'pharmacy_id' => 'required|integer|exists:pharmacies,id',
             'product_id' => 'required|integer|exists:products,id'
         ]);
-
         PharmacyProduct::create($validatedData);
-
-        return redirect()->route('pharmacy-products.index')->with('success', 'Pharmacy product created successfully.');
+        return redirect()->route('pharmacyProduct.index',$id)->with('success', 'Pharmacy product created successfully.');
     }
 
     /**

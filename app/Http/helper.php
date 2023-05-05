@@ -1,12 +1,29 @@
 <?php
 
 use App\Models\Country;
+use App\Models\Pharmacy;
+use App\Models\Product;
 
 if (!function_exists('getCountries')) {
     function getCountries()
     {
         $countries = Country::all();
         return $countries;
+    }
+}
+
+if (!function_exists('getPharmacies')) {
+    function getPharmacies()
+    {
+        $pharmacies = Pharmacy::all();
+        return $pharmacies;
+    }
+}
+if (!function_exists('getProducts')) {
+    function getProducts()
+    {
+        $products = Product::all();
+        return $products;
     }
 }
 

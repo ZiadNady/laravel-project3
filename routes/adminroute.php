@@ -7,7 +7,7 @@ use App\Http\Controllers\{
     DistrictController,
     CountryController,
     RoleController,
-
+    PharmacyProductController
 };
 
 use Illuminate\Support\Facades\Route;
@@ -69,6 +69,15 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/delete/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::put('/update', [ProductController::class, 'update'])->name('product.update');
+    });
+
+    Route::prefix('/pharmacyProduct')->group(function () {
+        Route::get('/create', [PharmacyProductController::class, 'create'])->name('pharmacyProduct.create');
+        Route::get('/{id}', [PharmacyProductController::class, 'index'])->name('pharmacyProduct.index');
+        Route::post('/store', [PharmacyProductController::class, 'store'])->name('pharmacyProduct.store');
+        Route::get('/delete/{id}', [PharmacyProductController::class, 'destroy'])->name('pharmacyProduct.destroy');
+        Route::get('/edit/{id}', [PharmacyProductController::class, 'edit'])->name('pharmacyProduct.edit');
+        Route::put('/update', [PharmacyProductController::class, 'update'])->name('pharmacyProduct.update');
     });
 
     Route::resource('/Role', RoleController::class)->parameters([
