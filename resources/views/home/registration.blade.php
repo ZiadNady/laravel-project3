@@ -90,7 +90,6 @@
 
                             <form name="register" action="{{ route('register.custom') }}" method="POST">
                                 @csrf
-                                <h1>Register:</h1>
                                 <!-- One "tab" for each step in the form: -->
                                 <div class="tab">Name:
                                     <p><input class="form-control" placeholder="First name..." name="first_name"></p>
@@ -100,21 +99,39 @@
                                     <p><input class="form-control" placeholder="E-mail..." name="email"></p>
                                     <p><input class="form-control" placeholder="Phone..." name="mobile_number"></p>
                                 </div>
-                                <div class="tab">Address:
 
-                                    <p><input class="form-control" placeholder="Address..."  name="address"></p>
+
+                                <div class="tab">Address:
+                                    <div class="mb-3 col">
+                                        <select class="form-control" type="name" id="country" name="country_id" placeholder="province">
+                                            <option>-- select country --</option>
+                                            @foreach (getCountries() as $country)
+                                                <option value="{{ $country->id }}">{{ $country->country_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col">
+                                        <select class="form-control" type="name" id="province" name="province_id" placeholder="province">
+                                        </select>
+                                    </div>
+                                    <div class="mb-3 col">
+                                        <select class="form-control" type="name" id="district" name="district_id" placeholder="district">
+                                        </select>
+                                    </div>
                                     <p> <select name="gender" class="form-select">
                                             <option selected value="Male">Male</option>
                                             <option value="Female">Female</option>
                                         </select></p>
                                 </div>
-                                <div class="tab">Login Info:
+                                <div class="tab">Password:
 
 
 
 
-                                    <p>    <input type="password" placeholder="Password" name="password" id="password" required></p>
-                                    <p> <input type="password" placeholder="Confirm Password" id="confirm_password" required></p>
+                                    <p> <input type="password" placeholder="Password" name="password" id="password"
+                                            required></p>
+                                    <p> <input type="password" placeholder="Confirm Password" id="confirm_password"
+                                            required></p>
                                 </div>
                                 <div style="overflow:auto;">
                                     {{-- <div style="float:right;"> --}}
@@ -181,21 +198,19 @@
 
 
     <script>
+        var password = document.getElementById("password"),
+            confirm_password = document.getElementById("confirm_password");
 
+        function validatePassword() {
+            if (password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+            } else {
+                confirm_password.setCustomValidity('');
+            }
+        }
 
-var password = document.getElementById("password")
-  , confirm_password = document.getElementById("confirm_password");
-
-function validatePassword(){
-  if(password.value != confirm_password.value) {
-    confirm_password.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirm_password.setCustomValidity('');
-  }
-}
-
-password.onchange = validatePassword;
-confirm_password.onkeyup = validatePassword;
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
         var currentTab = 0; // Current tab is set to be the first tab (0)
         showTab(currentTab); // Display the current tab
         document.getElementById("Submit").style.display = "none";
@@ -241,6 +256,12 @@ confirm_password.onkeyup = validatePassword;
                 // document.getElementById("register").submit();
                 return false;
             }
+            if  (currentTab == (x.length - 2)) {
+                // ... the form gets submitted:/register
+
+                document.getElementById("Submit").style.display =  "none";
+                document.getElementById("nextBtn").style.display = "inline";
+            }
             // Otherwise, display the correct tab:
             showTab(currentTab);
         }
@@ -275,5 +296,55 @@ confirm_password.onkeyup = validatePassword;
             }
             x[n].className += " active";
         }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var countrySelect = document.getElementById("country");
+            var provinceSelect = document.getElementById("province");
+            var districtSelect = document.getElementById("district")
+
+            countrySelect.addEventListener("change", function() {
+                var countryId = countrySelect.value;
+                provinceSelect.innerHTML = '<option value="">-- Select Province --</option>';
+
+                fetch('{{ route('provinces.getProvinces',"") }}/'+countryId)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        data.forEach(function(province) {
+                            var option = document.createElement("option");
+                            option.value = province.id;
+                            option.text = province.province_name;
+                            provinceSelect.appendChild(option);
+                        });
+                    })
+                    .catch(function() {
+                        alert('There was an error retrieving the provinces.');
+                    });
+            });
+
+            provinceSelect.addEventListener("change", function() {
+                console.log("hi");
+                var provienceId = provinceSelect.value;
+                districtSelect.innerHTML = '<option value="">-- Select District --</option>';
+
+                fetch('{{ route('districts.getDistricts',"") }}/'+provienceId)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        data.forEach(function(district) {
+                            var option = document.createElement("option");
+                            option.value = district.id;
+                            option.text = district.district_name;
+                            districtSelect.appendChild(option);
+                        });
+                    })
+                    .catch(function() {
+                        alert('There was an error retrieving the districts.');
+                    });
+            });
+        });
     </script>
 @endsection

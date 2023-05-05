@@ -15,7 +15,10 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/custom-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-/css/sharp-solid.css') }}">
 
     <!--  Bootstrap  -->
     <link rel="stylesheet" href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }} ">

@@ -17,7 +17,13 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/all.min.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/all.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/v4-shims.css') }}">
+
+    {{-- <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome/css/custom-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-/css/sharp-solid.css') }}"> --}}
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
@@ -47,8 +53,8 @@
         </div>
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <!-- Brand Logo -->  Admin
+            <a href="{{ route('Admin') }}" class="brand-link">
                 <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">AdminLTE 3</span>
@@ -96,7 +102,7 @@
     <script src="{{ asset('plugins/jquery-knob/jquery.knob.min.js') }}"></script>
     <!-- daterangepicker -->
     <script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
-    <script src="plugins/daterangepicker/daterangepicker.js')}}"></script>
+    <script src="{{ asset('plugins/daterangepicker/daterangepicker.js')}}"></script>
     <!-- Tempusdominus Bootstrap 4 -->
     <script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
     <!-- Summernote -->

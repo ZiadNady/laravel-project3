@@ -13,8 +13,8 @@
                 <label for="remember">Remember me</label>
                 <input type="checkbox" name="remember" value="1">
           </div>
-            <p class="text-muted">Create an account <a href="login.html">Sign Up</a></p>
-            <p class="text-muted"> <a href="login.html">Forgot password</a></p>
+            <p class="text-muted">Create an account <a href="{{ route('register') }}">Sign Up</a></p>
+            {{-- <p class="text-muted"> <a href="{{ route('register') }}">Forgot password</a></p> --}}
         </form>
     </div>
 </div>

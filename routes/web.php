@@ -1,6 +1,10 @@
 <?php
 
-use App\Http\Controllers\CountryController;
+use App\Http\Controllers\{
+    CountryController,
+    DistrictController,
+    ProvinceController
+};
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 /*
@@ -18,6 +22,12 @@ Route::get('/', function () {
     return view('home.index');
 })->name('home');
 
+Route::get('/getDistricts/{district_id}',[DistrictController::class, 'getDistrictsByProvinceId'])->name('districts.getDistricts');
+Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
+
+
+
+Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('custom-login', [LoginController::class, 'customLogin'])->name('login.custom');

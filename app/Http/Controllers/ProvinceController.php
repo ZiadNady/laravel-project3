@@ -22,10 +22,12 @@ class ProvinceController extends Controller
         return view('layouts.Area.Province', compact('provinces', 'search'));
     }
 
+
+
     public function getProvincesByCountryId($country_id)
     {
         $provinces = Province::where('country_id', $country_id)->get();
-            
+
         return response()->json($provinces);
     }
 

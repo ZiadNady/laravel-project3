@@ -1,10 +1,15 @@
 <?php
 
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\DistrictController;
-use App\Http\Controllers\PharmacyController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\{
+    ProvinceController,
+    ProductController,
+    PharmacyController,
+    DistrictController,
+    CountryController,
+    RoleController,
+
+};
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['admin'])->prefix('/Admin')->group(function () {
-       // Route::view('/', 'Admin');
+        Route::view('/', 'Admin')->name('Admin');
         Route::prefix('/countries')->group(function () {
         Route::get('/create', [CountryController::class, 'create'])->name('countries.create');
         Route::get('/', [CountryController::class, 'index'])->name('countries.index');
@@ -37,8 +42,7 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/delete/{id}', [ProvinceController::class, 'destroy'])->name('provinces.destroy');
         Route::get('/edit/{id}', [ProvinceController::class, 'edit'])->name('provinces.edit');
         Route::put('/update', [ProvinceController::class, 'update'])->name('provinces.update');
-        Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
-    });
+        });
 
     Route::prefix('/District')->group(function () {
         Route::get('/create', [DistrictController::class, 'create'])->name('districts.create');
@@ -47,8 +51,7 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/delete/{id}', [DistrictController::class, 'destroy'])->name('districts.destroy');
         Route::get('/edit/{id}', [DistrictController::class, 'edit'])->name('districts.edit');
         Route::put('/update', [DistrictController::class, 'update'])->name('districts.update');
-        Route::get('/getDistricts/{district_id}',[DistrictController::class, 'getDistrictsByProvinceId'])->name('districts.getDistricts');
-    });
+          });
 
     Route::prefix('/Pharmacy')->group(function () {
         Route::get('/create', [PharmacyController::class, 'create'])->name('pharmacy.create');
@@ -67,5 +70,20 @@ Route::middleware(['admin'])->prefix('/Admin')->group(function () {
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('product.edit');
         Route::put('/update', [ProductController::class, 'update'])->name('product.update');
     });
+
+    Route::resource('/Role', RoleController::class)->parameters([
+        'destroy' => 'id'
+    ])->names([
+        'edit' => 'roles.edit',
+        'destroy' => 'roles.destroy',
+        'update' => 'roles.update',
+        'create' => 'roles.create',
+        'store' => 'roles.store',
+        'index' => 'roles.index',
+        'show' => 'roles.show',
+        'index_all' => 'roles.index_all'
+    ]);;;
+
+
 });
 

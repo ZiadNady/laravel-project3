@@ -119,7 +119,11 @@ class LoginController extends Controller
             'first_name' => $data['first_name'],
             'mobile_number' => $data['mobile_number'],
             'last_name' => $data['last_name'],
-            'address' => $data['address'],
+            'country_id' => $data['country_id'],
+            'district_id' => $data['district_id'],
+            'province_id' => $data['province_id'],
+
+
             'password' => Hash::make($data['password'])
         ]);
     }

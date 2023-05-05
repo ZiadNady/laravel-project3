@@ -121,34 +121,29 @@
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+                <i class="fas  fa-solid fa-location-dot nav-icon"></i>
                 <p>
                     Area
                     <i class="fas fa-angle-left right"></i>
+
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>all Areas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a href="{{ route('countries.index') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new country</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('provinces.index') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new Province</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('districts.index') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new District</p>
                     </a>
                 </li>
