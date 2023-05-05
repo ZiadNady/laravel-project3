@@ -15,7 +15,8 @@ class Product extends Model
         'product_code',
         'image',
         'time_sold',
-        'drug_type'
+        'drug_type',
+        'slug'
     ];
 
     public function pharmacies()
