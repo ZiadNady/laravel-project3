@@ -44,18 +44,6 @@ class PharmacyProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $pharmacyProduct = PharmacyProduct::findOrFail($id);
-        return view('pharmacyProduct.show', compact('pharmacyProduct'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -65,7 +53,7 @@ class PharmacyProductController extends Controller
     {
         $pharmacyProduct = PharmacyProduct::findOrFail($Product_id);
 
-        return view('layouts.pharmacyProduct.EditPharmacyProduct', compact('pharmacyProduct','id'));
+        return view('layouts.pharmacyProduct.EditPharmacyProduct', compact('pharmacyProduct','Product_id','id'));
     }
 
     /**
@@ -75,7 +63,7 @@ class PharmacyProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'price' => 'required|numeric',
@@ -84,11 +72,12 @@ class PharmacyProductController extends Controller
             'pharmacy_id' => 'required|integer|exists:pharmacies,id',
             'product_id' => 'required|integer|exists:products,id'
         ]);
+        // return response()->json($request);
 
-        $pharmacyProduct = PharmacyProduct::findOrFail($id);
+        $pharmacyProduct = PharmacyProduct::findOrFail($request->productPharmacy);
         $pharmacyProduct->update($validatedData);
 
-        return redirect()->route('pharmacyProduct.index',$id)->with('success', 'Pharmacy product updated successfully.');
+        return redirect()->route('pharmacyProduct.index',$request->pharmacy_id)->with('success', 'Pharmacy product updated successfully.');
     }
 
     /**

@@ -20,6 +20,7 @@
                                 <option value="{{ $product->id }}">{{ $product->product_name }}</option>
                             @endforeach
                         </select>
+                        <input type="hidden" value="{{ $Product_id }}" name="productPharmacy"/>
                         <input type="hidden" value="{{ $id }}" name="pharmacy_id"/>
                         <div class="mb-3 col"><input class="form-control" type="date" name="expiration_date" id="expiration_date" min="{{ date('Y-m-d') }}" value="{{ $pharmacyProduct->expiration_date }}" /></div>
                         <div class="mb-3 col"><button class="btn btn-primary shadow d-block w-100" type="submit">add</button></div>
