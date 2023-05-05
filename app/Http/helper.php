@@ -37,6 +37,17 @@ if (!function_exists('uploaded_asset')) {
     }
 }
 
+
+
+//filter products based on vendor activation system
+if (!function_exists('filter_products')) {
+    function filter_products($products)
+    {
+        return $products;
+    }
+}
+
+
 if (!function_exists('get_setting')) {
     function get_setting($proprty)
     {
