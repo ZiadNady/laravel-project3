@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Http\File;
 
 class ProductController extends Controller
 {
@@ -26,17 +27,21 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json($request);
+        $file= $request->file('image');
+        $filename= date('YmdHi').$file->getClientOriginalName();
+        $file-> move(public_path('public/Image'), $filename);
+
+        // return response()->json($filename);
         $validator= $request->validate([
             'drug_type' => 'required',
             'product_name' => 'required',
             'product_code' => 'required|unique:products',
             'company' => 'required',
             'category' => 'required',
-            'image' => 'required'
         ]);
         $validator['slug']=$request->product_name.$request->product_code;
         $validator['time_sold']=0;
+        $validator['image']=$filename;
         // return response()->json($validator);
 
             Product::create($validator);
