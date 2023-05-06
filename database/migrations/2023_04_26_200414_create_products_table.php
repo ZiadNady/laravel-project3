@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->integer('time_sold');
             $table->string('drug_type');
+            $table->string('company');
             $table->string('slug');
             $table->timestamps();
         });

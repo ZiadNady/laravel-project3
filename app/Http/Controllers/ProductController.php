@@ -26,11 +26,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json($request);
         $validator= $request->validate([
-            'category' => 'required',
+            'drug_type' => 'required',
             'product_name' => 'required',
             'product_code' => 'required|unique:products',
+            'company' => 'required',
+            'category' => 'required',
+            'image' => 'required'
         ]);
+        $validator['slug']=$request->product_name.$request->product_code;
+        $validator['time_sold']=0;
+        // return response()->json($validator);
 
             Product::create($validator);
             return redirect()->route('product.index')->with('success', 'product updated successfully.');
@@ -44,10 +51,14 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
             'category' => 'required',
             'product_name' => 'required',
-            'product_code' => 'required|unique:products,product_code,'.$id,
+            'product_code' => 'required|unique:products,product_code',
+            'image' => 'required',
+            'company' => 'required',
+            'category' => 'required',
         ]);
 
         if (Product::find($request->id)) {

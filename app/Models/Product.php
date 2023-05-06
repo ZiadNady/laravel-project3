@@ -16,6 +16,7 @@ class Product extends Model
         'image',
         'time_sold',
         'drug_type',
+        'company',
         'slug'
     ];
 
