@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
 use App\Models\Pharmacy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -9,76 +10,69 @@ use Illuminate\Support\Facades\Validator;
 class PharmacyController extends Controller
 {
     // Get all pharmacies
-    public function index()
+    public function index(Request $request)
     {
-        $pharmacies = Pharmacy::all();
-        return response()->json($pharmacies);
+        $search = null;
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $pharmacies = Pharmacy::where('pharmacy_name', 'LIKE', $search . '%')->paginate(15);
+        } else {
+            $pharmacies = Pharmacy::orderBy('id', 'asc')->paginate(15);
+        }
+        return view('layouts.pharmacy.Pharmacy', compact('pharmacies', 'search'));
     }
 
-    // Get a specific pharmacy
-    public function show($id)
+    public function create()
     {
-        $pharmacy = Pharmacy::findOrFail($id);
-        return response()->json($pharmacy);
+        return redirect()->route('pharmacy.index');
     }
 
-    // Create a new pharmacy
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validatedData = $request->validate([
             'pharmacy_name' => 'required|max:255',
             'country_id' => 'required|integer',
             'district_id' => 'required|integer',
             'province_id' => 'required|integer',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+        // return response()->json($request);
+        if (District::find($request->district_id)) {
+            Pharmacy::create($validatedData);
+            return redirect()->route('pharmacy.index')->with('success', 'District updated successfully.');
         }
-
-        $pharmacy = new Pharmacy;
-        $pharmacy->pharmacy_name = $request->pharmacy_name;
-        $pharmacy->country_id = $request->country_id;
-        $pharmacy->district_id = $request->district_id;
-        $pharmacy->province_id = $request->province_id;
-        $pharmacy->active = $request->active ?? true;
-        $pharmacy->save();
-
-        return response()->json(['message' => 'Pharmacy created successfully']);
     }
 
-    // Update a pharmacy
-    public function update(Request $request, $id)
+    public function edit($id)
     {
-        $pharmacy = Pharmacy::findOrFail($id);
+        $pharmacy = Pharmacy::find($id);
+        return view('layouts.pharmacy.EditPharmacy', compact('pharmacy'));
+    }
 
-        $validator = Validator::make($request->all(), [
+    public function update(Request $request)
+    {
+        $request->validate([
             'pharmacy_name' => 'required|max:255',
             'country_id' => 'required|integer',
             'district_id' => 'required|integer',
             'province_id' => 'required|integer',
         ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 400);
+        if (Pharmacy::find($request->id)) {
+            $pharmacy = Pharmacy::find($request->id);
+            $pharmacy->pharmacy_name = $request->pharmacy_name;
+            $pharmacy->country_id = $request->country_id;
+            $pharmacy->district_id = $request->district_id;
+            $pharmacy->province_id = $request->province_id;
+            $pharmacy->save();
+            return redirect()->route('pharmacy.index')->with('success', 'Pharmacy updated successfully.');
         }
-
-        $pharmacy->pharmacy_name = $request->pharmacy_name;
-        $pharmacy->country_id = $request->country_id;
-        $pharmacy->district_id = $request->district_id;
-        $pharmacy->province_id = $request->province_id;
-        $pharmacy->active = $request->active ?? true;
-        $pharmacy->save();
-
-        return response()->json(['message' => 'Pharmacy updated successfully']);
     }
 
-    // Delete a pharmacy
+
     public function destroy($id)
     {
         $pharmacy = Pharmacy::findOrFail($id);
         $pharmacy->delete();
-
-        return response()->json(['message' => 'Pharmacy deleted successfully']);
+        $search = null;
+        return redirect()->route('pharmacy.index');
     }
 }

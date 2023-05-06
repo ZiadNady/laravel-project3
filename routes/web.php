@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\CountryController;
+use App\Http\Controllers\{
+    CountryController,
+    DistrictController,
+    ProvinceController
+};
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,8 +19,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('home.index');
+})->name('home');
+
+Route::get('/getDistricts/{district_id}',[DistrictController::class, 'getDistrictsByProvinceId'])->name('districts.getDistricts');
+Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
+
+
+
+Route::get('/getProvinces/{country_id}',[ProvinceController::class, 'getProvincesByCountryId'])->name('provinces.getProvinces');
+
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::post('custom-login', [LoginController::class, 'customLogin'])->name('login.custom');
+
+Route::get('registration', [LoginController::class, 'registration'])->name('register');
+Route::post('custom-registration', [LoginController::class, 'customRegistration'])->name('register.custom');
+Route::get('signout', [UserController::class, 'signOut'])->name('signout');
+
 
 // Route::get('/countries', [CountryController::class, 'index'])->name('countries.index');
 // Route::get('/countries/{id}', [CountryController::class, 'show'])->name('countries.show');

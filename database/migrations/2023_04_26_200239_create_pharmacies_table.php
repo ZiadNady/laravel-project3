@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('pharmacy_name');
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('province_id');
             $table->unsignedBigInteger('district_id');

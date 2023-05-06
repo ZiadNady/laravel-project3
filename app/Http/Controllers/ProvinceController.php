@@ -4,103 +4,80 @@ namespace App\Http\Controllers;
 
 use App\Models\Province;
 use Illuminate\Http\Request;
+use App\Models\Country;
+use Illuminate\Support\Facades\Redirect;
 
 class ProvinceController extends Controller
 {
-    /**
-     * Display a listing of the provinces.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        $provinces = Province::all();
-        return view('provinces.index', compact('provinces'));
+
+        $search = null;
+        if ($request->exists('search')) {
+            $search  = $request->search;
+            $provinces = Province::where('province_name', 'LIKE', $search . '%')->paginate(15);
+        } else {
+            $provinces = Province::orderBy('id', 'asc')->paginate(15);
+        }
+        return view('layouts.Area.Province', compact('provinces', 'search'));
     }
 
-    /**
-     * Show the form for creating a new province.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
+    public function getProvincesByCountryId($country_id)
+    {
+        $provinces = Province::where('country_id', $country_id)->get();
+
+        return response()->json($provinces);
+    }
+
     public function create()
     {
-        return view('provinces.create');
+        return Redirect()->Route('provinces.index');
     }
 
-    /**
-     * Store a newly created province in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'province_name' => 'required|string|max:255',
-            'country_id' => 'required|exists:countries,id',
+            'country_id' =>  "required",
+            'province_name' => 'required|max:255',
         ]);
-
-        $province = new Province();
-        $province->province_name = $validatedData['province_name'];
-        $province->country_id = $validatedData['country_id'];
-        $province->save();
-
-        return redirect()->route('provinces.index')->with('success', 'Province created successfully.');
+        // return response()->json($request->all());
+        if (Country::find($request->country_id))
+            Province::create($validatedData);
+        //   dd($request);
+        //  flash('Province created successfully.')->success();
+        return redirect()->route('provinces.index');
     }
 
-    /**
-     * Display the specified province.
-     *
-     * @param  \App\Models\Province  $province
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Province $province)
+    public function edit($id)
     {
-        return view('provinces.show', compact('province'));
+        $province = Province::find($id);
+        return view('layouts.Area.EditProvince', compact('province'));
     }
 
-    /**
-     * Show the form for editing the specified province.
-     *
-     * @param  \App\Models\Province  $province
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Province $province)
-    {
-        return view('provinces.edit', compact('province'));
-    }
-
-    /**
-     * Update the specified province in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Province  $province
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Province $province)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'province_name' => 'required|string|max:255',
-            'country_id' => 'required|exists:countries,id',
+            'country_id' =>  "required",
+            'province_name' => 'required|max:255',
         ]);
+        // return response()->json($request->all());
 
-        $province->province_name = $validatedData['province_name'];
-        $province->country_id = $validatedData['country_id'];
-        $province->save();
-
-        return redirect()->route('provinces.index')->with('success', 'Province updated successfully.');
+        if (Country::find($request->country_id)) {
+            $province = Province::find($request->id);
+            $province->country_id = $request->country_id;
+            $province->province_name = $request->province_name;
+            $province->save();
+            return redirect()->route('provinces.index')->with('success', 'Province updated successfully.');
+        }
     }
 
-    /**
-     * Remove the specified province from storage.
-     *
-     * @param  \App\Models\Province  $province
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Province $province)
+    public function destroy($id)
     {
+        $province = Province::findOrFail($id);
         $province->delete();
-        return redirect()->route('provinces.index')->with('success', 'Province deleted successfully.');
+        $search = null;
+        return redirect()->route('provinces.index');
     }
 }

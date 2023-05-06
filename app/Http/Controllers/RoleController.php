@@ -14,8 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', compact('roles'));
+        $roles = Role::all()->paginate(15);
+        return view('layouts.roles.index', compact('roles'));
     }
 
     /**
@@ -36,12 +36,18 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
+
+
+
         $request->validate([
-            'role' => 'required|string|unique:roles|max:255',
+            'name' => 'required|string|unique:roles|max:255',
         ]);
 
-        $role = Role::create([
-            'role' => $request->role,
+       // return response()->json(  $request->role);
+
+       $role = Role::create([
+            'permissions' =>  json_encode($request->permissions),
+            'name' => $request->name,
         ]);
 
         return redirect()->route('roles.index')
@@ -56,7 +62,9 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('roles.show', compact('role'));
+        $roles = Role::all()->paginate(15);
+        return view('layouts.roles.index', compact('roles'));
+       // return view('roles.show', compact('role'));
     }
 
     /**
@@ -65,9 +73,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        return view('roles.edit', compact('role'));
+        $role= Role::find($id);
+        return view('layouts.roles.edit', compact('role'));
     }
 
     /**
@@ -97,10 +106,9 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy($id)
     {
-        $role->delete();
-
+        Role::find($id)->delete();
         return redirect()->route('roles.index')
             ->with('success', 'Role deleted successfully.');
     }

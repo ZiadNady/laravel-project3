@@ -89,9 +89,27 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                    <a href="{{ route('pharmacy.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>add new pharmacy</p>
+                        <p>add new Pharmacy</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="fa-solid fa-lock "></i>
+                <p>
+                    Role
+                    <i class="fas fa-angle-left right"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                    <a href="{{ route('roles.index') }}" class="nav-link">
+                        <i class="fa-regular fa-book-sparkles nav-icon"></i>
+                        <p>Role</p>
                     </a>
                 </li>
             </ul>
@@ -112,7 +130,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                    <a href="{{ route('product.index') }}" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>add new Medicine</p>
                     </a>
@@ -121,34 +139,29 @@
         </li>
         <li class="nav-item">
             <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-copy"></i>
+                <i class="fas  fa-solid fa-location-dot nav-icon"></i>
                 <p>
                     Area
                     <i class="fas fa-angle-left right"></i>
+
                 </p>
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>all Areas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('countries.create') }}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('countries.index') }}" class="nav-link">
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new country</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('provinces.index') }}" class="nav-link">
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new Province</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                    <a href="{{ route('districts.index') }}" class="nav-link">
+                        <i class="far fa-solid fa-globe nav-icon"></i>
                         <p>add new District</p>
                     </a>
                 </li>
