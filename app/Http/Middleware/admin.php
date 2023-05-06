@@ -19,7 +19,7 @@ class admin
     {
        // if (Auth::isAdmin($request)) {
 
-       // return response()->json( Auth::check());
+      // return response()->json( [Auth::check(), auth()->user()->id, auth()->user()->role_id]);
          if (Auth::check() && auth()->user()->role_id == 1) {
 
              return $next($request);
@@ -28,6 +28,7 @@ class admin
          {
 
             abort(403);
+
          }
 
        //  auth()->user() //roles
